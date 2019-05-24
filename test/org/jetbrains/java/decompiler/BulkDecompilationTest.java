@@ -2,6 +2,7 @@
 package org.jetbrains.java.decompiler;
 
 import org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler;
+import org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences;
 import org.jetbrains.java.decompiler.util.InterpreterUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class BulkDecompilationTest {
   @Before
   public void setUp() throws IOException {
     fixture = new DecompilerTestFixture();
-    fixture.setUp();
+    fixture.setUp(IFernflowerPreferences.FUNCTION_START_ADJUSTED, "0");
   }
 
   @After

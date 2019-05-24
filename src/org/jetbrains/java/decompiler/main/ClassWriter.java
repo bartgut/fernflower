@@ -209,7 +209,11 @@ public class ClassWriter {
           buffer.appendLineSeparator();
           startLine++;
         }
-        BytecodeMappingTracer method_tracer = new BytecodeMappingTracer(startLine);
+
+        BytecodeMappingTracer method_tracer = shouldAdjustFunctionStart()
+          ? createMethodTracerWithFunctionStartAdjustement(mt, startLine)
+          : new BytecodeMappingTracer(startLine);
+
         boolean methodSkipped = !methodToJava(node, mt, buffer, indent + 1, method_tracer);
         if (!methodSkipped) {
           hasContent = true;
@@ -254,6 +258,21 @@ public class ClassWriter {
     }
 
     DecompilerContext.getLogger().endWriteClass();
+  }
+
+  private BytecodeMappingTracer createMethodTracerWithFunctionStartAdjustement(StructMethod mt, int originalStartLine) {
+    StructLineNumberTableAttribute lineNumberTable = mt.getAttribute(StructGeneralAttribute.ATTRIBUTE_LINE_NUMBER_TABLE);
+    return isLineNumberTablePresent(lineNumberTable)
+      ? new BytecodeMappingTracer(lineNumberTable.getRawData()[1])
+      : new BytecodeMappingTracer(originalStartLine);
+  }
+
+  private boolean isLineNumberTablePresent(StructLineNumberTableAttribute lineNumberTable) {
+    return lineNumberTable != null && lineNumberTable.getRawData().length > 0;
+  }
+
+  private boolean shouldAdjustFunctionStart() {
+    return DecompilerContext.getOption(IFernflowerPreferences.FUNCTION_START_ADJUSTED);
   }
 
   private static void addTracer(StructClass cls, StructMethod method, BytecodeMappingTracer tracer) {
@@ -570,6 +589,10 @@ public class ClassWriter {
 
     boolean hideMethod = false;
     int start_index_method = buffer.length();
+
+    if (shouldAdjustFunctionStart()) {
+      buffer.setCurrentLine(tracer.getCurrentSourceLine() - 1);
+    }
 
     MethodWrapper outerWrapper = (MethodWrapper)DecompilerContext.getProperty(DecompilerContext.CURRENT_METHOD_WRAPPER);
     DecompilerContext.setProperty(DecompilerContext.CURRENT_METHOD_WRAPPER, methodWrapper);

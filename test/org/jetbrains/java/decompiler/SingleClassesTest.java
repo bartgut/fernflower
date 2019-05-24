@@ -25,7 +25,8 @@ public class SingleClassesTest {
     fixture.setUp(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1",
                   IFernflowerPreferences.DUMP_ORIGINAL_LINES, "1",
                   IFernflowerPreferences.IGNORE_INVALID_BYTECODE, "1",
-                  IFernflowerPreferences.VERIFY_ANONYMOUS_CLASSES, "1");
+                  IFernflowerPreferences.VERIFY_ANONYMOUS_CLASSES, "1",
+                  IFernflowerPreferences.FUNCTION_START_ADJUSTED, "0");
   }
 
   @After

@@ -32,6 +32,17 @@ public class TextBuffer {
     myStringBuilder = new StringBuilder(text);
   }
 
+  public void setCurrentLine(int line) {
+    setLineMapping(line, myStringBuilder.length()+1);
+  }
+
+  private void setLineMapping(int line, int offset) {
+    if (line >= 0) {
+      checkMapCreated();
+      myLineToOffsetMapping.put(line, offset);
+    }
+  }
+
   public TextBuffer append(String str) {
     myStringBuilder.append(str);
     return this;

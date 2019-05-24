@@ -34,6 +34,7 @@ public interface IFernflowerPreferences {
   String BYTECODE_SOURCE_MAPPING = "bsm";
   String IGNORE_INVALID_BYTECODE = "iib";
   String VERIFY_ANONYMOUS_CLASSES = "vac";
+  String FUNCTION_START_ADJUSTED = "fsa";
 
   String LOG_LEVEL = "log";
   String MAX_PROCESSING_METHOD = "mpm";
@@ -80,6 +81,7 @@ public interface IFernflowerPreferences {
     defaults.put(BYTECODE_SOURCE_MAPPING, "0");
     defaults.put(IGNORE_INVALID_BYTECODE, "0");
     defaults.put(VERIFY_ANONYMOUS_CLASSES, "0");
+    defaults.put(FUNCTION_START_ADJUSTED, "1");
 
     defaults.put(LOG_LEVEL, IFernflowerLogger.Severity.INFO.name());
     defaults.put(MAX_PROCESSING_METHOD, "0");
