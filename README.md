@@ -66,6 +66,7 @@ The rest of options can be left as they are: they are aimed at professional reve
 - nls (0): define new line character to be used for output. 0 - '\r\n' (Windows), 1 - '\n' (Unix), default is OS-dependent
 - ind: indentation string (default is 3 spaces)
 - log (INFO): a logging level, possible values are TRACE, INFO, WARN, ERROR
+- fsa (1): decompiled functions will start in the same as in source code
 
 ### Renaming identifiers
 
